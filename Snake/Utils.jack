@@ -1,0 +1,11 @@
+class Utils{
+
+    function int Mod(int x,int div){
+        var int y;
+
+        let y = x/div;
+        let y = x - (y*div);
+
+        return y;
+    }
+}

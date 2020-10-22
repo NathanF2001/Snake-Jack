@@ -1,0 +1,50 @@
+class Map{ // Create the map of the collision of snake
+
+    field Array matrix;
+
+    constructor Map new(int x,int y){
+        var Array submatrix;
+        var int i,j;
+
+        let i = 0; let j = 0; // i - row ; j - column
+        let matrix = Array.new(y);
+        while (i < y ){
+            let submatrix = Array.new(x);
+            while (j < x){
+                let submatrix[j] = 0;
+                let j = j + 1;
+            }
+            let matrix[i] = submatrix;
+            let i = i + 1 ;
+            let j = 0;
+
+        }
+        
+        
+        return this;
+        
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        do matrix.dispose();
+        return ;
+    }
+
+    method int get_value(int x, int y){
+        var Array submatrix;
+        
+        
+        let submatrix = matrix[y];
+        return submatrix[x];
+
+    }
+
+    method void set_value(int value,int x, int y){
+        var Array submatrix;
+        let submatrix = matrix[y];
+        let submatrix[x] = value;
+        return ;
+
+    }
+}

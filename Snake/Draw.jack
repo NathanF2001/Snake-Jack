@@ -1,0 +1,18 @@
+class Draw{
+
+    function void draw_black(int x,int y){
+        let x = (x*4) + 64;
+        let y = (y*4) + 16;
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x,y,x+3,y+3);
+        return ;
+    }
+
+    function void draw_white(int x,int y){
+        let x = (x*4) + 64;
+        let y = (y*4) + 16;
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x,y,x+3,y+3);
+        return ;
+        }
+}

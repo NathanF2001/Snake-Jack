@@ -1,0 +1,208 @@
+function Snake.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 98
+push constant 58
+call Map.new 2
+pop this 2
+call Queue.new 0
+pop this 3
+push this 3
+push constant 0
+push constant 0
+call Queue.insert 3
+pop temp 0
+push constant 0
+push constant 0
+call Draw.draw_black 2
+pop temp 0
+push this 2
+push constant 1
+push constant 0
+push constant 0
+call Map.set_value 4
+pop temp 0
+push constant 0
+pop this 1
+push constant 0
+pop this 0
+push pointer 0
+return
+function Snake.get_q 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Snake.reset 1
+push argument 0
+pop pointer 0
+push this 3
+call Queue.get_first 1
+pop local 0
+label WHILE_EXP0
+push this 3
+call Queue.Empty 1
+not
+not
+if-goto WHILE_END0
+push this 2
+push constant 0
+push local 0
+call Node.get_x 1
+push local 0
+call Node.get_y 1
+call Map.set_value 4
+pop temp 0
+push local 0
+call Node.get_x 1
+push local 0
+call Node.get_y 1
+call Draw.draw_white 2
+pop temp 0
+push local 0
+call Node.get_neigh 1
+pop local 0
+push this 3
+call Queue.extract 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push this 2
+push constant 1
+push constant 0
+push constant 0
+call Map.set_value 4
+pop temp 0
+push this 3
+push constant 0
+push constant 0
+call Queue.insert 3
+pop temp 0
+push constant 0
+pop this 0
+push constant 0
+pop this 1
+push constant 0
+push constant 0
+call Draw.draw_black 2
+pop temp 0
+push constant 0
+return
+function Snake.dispose 0
+push argument 0
+pop pointer 0
+push this 2
+call Map.dispose 1
+pop temp 0
+push this 3
+call Queue.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Snake.get_matrix 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Snake.get_row 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Snake.add_row 0
+push argument 0
+pop pointer 0
+push this 1
+push argument 1
+add
+pop this 1
+push constant 0
+return
+function Snake.get_column 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Snake.add_column 0
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+add
+pop this 0
+push constant 0
+return
+function Snake.get_value_map 0
+push argument 0
+pop pointer 0
+push this 2
+push this 0
+push this 1
+call Map.get_value 3
+return
+function Snake.increase_snake 0
+push argument 0
+pop pointer 0
+push this 2
+push constant 1
+push this 0
+push this 1
+call Map.set_value 4
+pop temp 0
+push this 3
+push this 1
+push this 0
+call Queue.insert 3
+pop temp 0
+push this 0
+push this 1
+call Draw.draw_black 2
+pop temp 0
+push constant 0
+return
+function Snake.walk 3
+push argument 0
+pop pointer 0
+push this 3
+call Queue.get_first 1
+pop local 2
+push local 2
+call Node.get_x 1
+pop local 0
+push local 2
+call Node.get_y 1
+pop local 1
+push local 0
+push local 1
+call Draw.draw_white 2
+pop temp 0
+push this 2
+push constant 0
+push local 0
+push local 1
+call Map.set_value 4
+pop temp 0
+push this 3
+call Queue.extract 1
+pop temp 0
+push this 3
+push this 1
+push this 0
+call Queue.insert 3
+pop temp 0
+push this 2
+push constant 1
+push this 0
+push this 1
+call Map.set_value 4
+pop temp 0
+push this 0
+push this 1
+call Draw.draw_black 2
+pop temp 0
+push constant 0
+return

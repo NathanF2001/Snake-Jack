@@ -1,0 +1,35 @@
+function Collision.colide 0
+push argument 1
+push constant 0
+lt
+push argument 1
+push constant 95
+gt
+or
+push argument 2
+push constant 0
+lt
+or
+push argument 2
+push constant 55
+gt
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push argument 0
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+not
+return
+label IF_FALSE1
+push constant 0
+return

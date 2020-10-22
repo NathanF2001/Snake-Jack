@@ -1,0 +1,165 @@
+// The map have 384 pixels of length to 244 width
+
+
+class Game{
+    field int direction,row,column,x_vel,y_vel;
+    field Snake snake; // The queue will storage the address of the body of snake
+    field Fruit food;
+    field Score points;
+
+
+    constructor Game new(){
+        
+        do create_interface();
+
+        let direction = 4;
+        let x_vel = 1;
+        let y_vel = 0;
+
+        let snake = Snake.new();
+
+        let food = Fruit.new();
+        do food.create_fruit(snake.get_matrix());
+
+        let points = Score.new();
+        do points.update_score();
+
+        do Random.setSeed(57);
+  
+        return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return ;
+    }
+
+    method void new_game(){ // Reset variables of application
+        
+        do Screen.drawRectangle(64,16,447,239);
+        
+        do snake.reset();
+        do points.reset();
+        do food.reset();
+        do food.create_fruit(snake.get_matrix());
+        let direction = 4;
+        
+        let x_vel = 1;
+        let y_vel = 0;
+
+
+        return ;
+    }
+
+    method void game_over(){ // Restart the game
+        var bool start;
+        var char key;
+
+        do Screen.setColor(false);
+        do Screen.drawRectangle(64,15,447,240);
+        do Output.moveCursor(11,28);
+        do Output.printString("GAME OVER");
+
+        do Output.moveCursor(12,22);
+        do Output.printString("Press x to a new game");
+        
+        let start = true;
+        while(start){
+            let key = Keyboard.keyPressed(); 
+            if (key = 88 ){
+                let start = false;
+            }
+        }
+        
+        do new_game();
+
+        return ;
+    }
+
+    method void create_interface(){ // Create black interface 
+
+        do Screen.drawRectangle(0,0,62,255);
+        do Screen.drawRectangle(449,0,511,255);
+        do Screen.drawRectangle(63,0,448,14);
+        do Screen.drawRectangle(63,241,448,255);
+        
+
+        return ;
+    }
+
+    method void run(){
+        var char key,current_key;  // the key currently pressed by the user
+        var int value;
+        var boolean exit;
+
+        
+        
+        
+        let exit = false;
+        let current_key = 132;
+        let key = 132;
+        
+        while (~exit) {
+            while ((key = 0) | (key = current_key)) {
+                do Sys.wait(50);
+
+                
+
+                do snake.add_row(y_vel);
+                do snake.add_column(x_vel);
+                
+                if ((snake.get_row() = food.get_row()) & (snake.get_column() = food.get_column())){ // If eat fruit
+                    do snake.increase_snake();
+                    do points.add_points();
+                    do points.update_score();
+                    do food.create_fruit(snake.get_matrix());
+
+                }else{
+                    
+                    if (Collision.colide(snake.get_value_map(),snake.get_column(),snake.get_row())){ // If collided with borders or itself
+                        do game_over();
+                        let key = 132;
+                        let current_key = 132;
+                    }else{ // Just walk
+                        
+                        do snake.walk();
+                    }
+                    
+                }
+                
+
+                let key = Keyboard.keyPressed();
+                
+                // This section controls to snake don't move on in reverse of movement
+                if (key = 131 & (direction = 2)) { let key = 0;} // up arrow
+                if (key = 133 & (direction = 1)) {let key = 0;}   // down arrow
+                if (key = 130 & (direction = 4)) {let key = 0;}   // left arrow
+                if (key = 132 & (direction = 3)) {let key = 0;}   // right arrow
+                if (~((key = 130) | (key = 131) | (key = 132) | (key = 133) | (key = 81))){ let key = current_key; }// if key pressed isn't a movement or quit game
+                
+                
+                
+            }
+            // Change direction of movement or ending of application
+            if (key = 81)  { let exit = true; }     // q key end of application
+            if (key = 131 ) { let direction = 1; let current_key = 131; let y_vel = -1; let x_vel = 0; }   // up arrow
+            if (key = 133 ) { let direction = 2; let current_key = 133; let y_vel = 1; let x_vel = 0; }   // down arrow
+            if (key = 130 ) { let direction = 3; let current_key = 130; let y_vel = 0; let x_vel = -1; }   // left arrow
+            if (key = 132 ) { let direction = 4; let current_key = 132; let y_vel = 0; let x_vel = 1; }   // right arrow
+
+            
+
+            
+        } // while
+
+        
+
+        return ;
+    }
+
+    
+
+    
+
+    
+}

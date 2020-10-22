@@ -1,0 +1,126 @@
+class Snake{
+    field int column_head,row_head;
+    field Map matrix;
+    field Queue body;
+
+    constructor Snake new() {
+
+        let matrix = Map.new(98,58);
+
+        let body = Queue.new();
+    
+
+        do body.insert(0,0);
+
+        do Draw.draw_black(0,0);
+        
+        do matrix.set_value(1,0,0); 
+
+
+        let row_head = 0; 
+        let column_head = 0;
+
+        return this;
+        
+    }
+
+    method Queue get_q(){
+        return body;
+    }
+
+    method void reset(){    
+        var Node current;
+        let current = body.get_first();
+        while (~(body.Empty())){ // Remove all part of old snake
+            
+            do matrix.set_value(0,current.get_x(),current.get_y());
+            do Draw.draw_white(current.get_x(),current.get_y());
+            let current = current.get_neigh();
+            do body.extract();
+        }
+        
+
+        // snake in default position
+         
+        do matrix.set_value(1,0,0);
+        
+        do body.insert(0,0);
+        
+        
+        let column_head = 0;
+        let row_head = 0;
+        
+        do Draw.draw_black(0,0);
+        
+        return ;
+    }
+
+    method void dispose(){
+        do matrix.dispose();
+        do body.dispose();
+
+        do Memory.deAlloc(this);
+        return ;
+    }
+
+    method Map get_matrix(){
+        return matrix;
+    }
+
+
+    method int get_row(){
+        return row_head;
+    }
+
+    method void add_row(int value){
+        let row_head = row_head + value;
+        return ;
+    }
+
+    method int get_column(){
+        return column_head;
+    }
+
+    method void add_column(int value){
+        let column_head = column_head + value;
+        return ;
+    }
+
+    method int get_value_map(){
+        return matrix.get_value(column_head,row_head);
+    }
+ 
+    method void increase_snake(){
+        
+        do matrix.set_value(1,column_head,row_head);
+        do body.insert(row_head,column_head);
+        do Draw.draw_black(column_head,row_head);
+    
+
+        return ;
+    }
+
+    method void walk(){
+        var int x_tail,y_tail;
+        var Node temp;
+
+        let temp = body.get_first();
+        let x_tail = temp.get_x();
+        let y_tail = temp.get_y();
+
+        do Draw.draw_white(x_tail,y_tail);
+        do matrix.set_value(0,x_tail,y_tail);
+
+        do body.extract();
+        
+
+        do body.insert(row_head,column_head);
+        do matrix.set_value(1,column_head,row_head);
+        do Draw.draw_black(column_head,row_head);
+
+        
+    return ;
+    }
+
+
+}

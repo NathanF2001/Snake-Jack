@@ -1,0 +1,111 @@
+class Queue {
+    field Node first,last;
+    
+    constructor Queue new(){
+        let first = null;
+        let last = null;
+
+        return this;
+    }
+
+    method void dispose(){
+        var Node node,next;
+        let node = first;
+        
+        while (~(next = null)){
+            let next = node.get_neigh();
+            do node.dispose();
+            let node = next;
+        }
+
+        do Memory.deAlloc(this);
+
+        return ;
+    }
+
+    method bool Empty(){
+        if (first = null){
+            return true;
+        }
+        return false;
+    }
+
+    method Node get_first(){
+        return first;
+    }
+
+    method void set_first(Node i){
+        let first = i;
+        return ;
+    }
+
+    method Node get_last(){
+        return last;
+    }
+
+    method void set_last(Node i){
+        let last = i;
+        return ;
+    }
+
+    method void print(){  // print the queue on screen
+        var Node atual_node;
+        var int row,column;
+        var bool end;
+        let end = true;
+
+        let atual_node = get_first();
+        do Output.printString("[");
+        if (first = null){
+            let end = false;
+        }
+        while (end){
+            let row = atual_node.get_y();
+            let column = atual_node.get_x();
+            do Output.printString("(");
+            do Output.printInt(column);
+            do Output.printString(",");
+            do Output.printInt(row);
+            do Output.printString(")");
+            do Output.printString(",");
+            let atual_node = atual_node.get_neigh();
+            if (atual_node = null){
+                let end = false;
+            }
+        }
+        do Output.printString("]");
+
+        return ;
+    }
+
+    method void extract(){ // Remove the first node of queue
+        var Node to_extract;
+
+        let to_extract = first;
+
+        do set_first(first.get_neigh());
+        do to_extract.dispose();
+
+        if (first = null){
+            let last = null;
+        }
+
+
+        return ;
+    }
+
+    method void insert(int r,int c){ // insert a node in last position in queue
+        var Node new_node, last_node;
+
+        let new_node = Node.new(r,c);
+        if(first = null){
+            do set_first(new_node);
+            do set_last(new_node);
+        }else{
+            let last_node = get_last();
+            do last_node.set_neigh(new_node);
+            do set_last(new_node);
+        }
+        return ;
+    }
+}

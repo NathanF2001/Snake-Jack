@@ -1,0 +1,57 @@
+function Draw.draw_black 0
+push argument 0
+push constant 4
+call Math.multiply 2
+push constant 64
+add
+pop argument 0
+push argument 1
+push constant 4
+call Math.multiply 2
+push constant 16
+add
+pop argument 1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push argument 0
+push argument 1
+push argument 0
+push constant 3
+add
+push argument 1
+push constant 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Draw.draw_white 0
+push argument 0
+push constant 4
+call Math.multiply 2
+push constant 64
+add
+pop argument 0
+push argument 1
+push constant 4
+call Math.multiply 2
+push constant 16
+add
+pop argument 1
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push argument 0
+push argument 1
+push argument 0
+push constant 3
+add
+push argument 1
+push constant 3
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return

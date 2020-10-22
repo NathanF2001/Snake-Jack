@@ -1,0 +1,41 @@
+class Score{
+
+    field int points;
+
+    constructor Score new(){
+        let points = 0;
+
+        return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return ;
+    }
+
+    method void reset(){
+        let points = 0;
+        do update_score();
+        return ;
+    }
+
+    method int get_points(){
+        return points;
+    }
+
+    method void add_points(){
+        let points = points + 1;
+        return ;
+    }
+
+    method void update_score(){
+        do Output.moveCursor(0,1);
+        do Output.printString(" Score: ");
+        if (points < 10){
+            do Output.printInt(0);
+        }
+        do Output.printInt(get_points());
+
+        return ;
+    }
+}

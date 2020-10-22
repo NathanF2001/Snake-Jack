@@ -1,0 +1,36 @@
+class Node {
+    field int y,x;
+    field Node neighborhood;
+
+    constructor Node new(int r,int c){
+
+        let y = r;
+        let x = c;
+        let neighborhood = null;
+
+        return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return ;
+    }
+
+    method Array get_y(){
+        return y;
+    }
+
+    method Array get_x(){
+        return x;
+    }
+
+    method Node get_neigh(){
+        return neighborhood;
+    }
+
+
+    method void set_neigh(Node i){
+        let neighborhood = i;
+        return ;
+    }
+}

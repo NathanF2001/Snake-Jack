@@ -1,0 +1,57 @@
+class Fruit{
+    field int row,column;
+
+    constructor Fruit new(){
+        let column = 0;
+        let row = 0;
+
+        return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return ;
+    }
+
+    method void reset(){
+        do Draw.draw_white(column,row);
+        return ;
+    }
+
+    method int get_row(){
+        return row;
+    }
+
+    method void set_row(int value){
+        let row = value;
+        return ;
+    }
+
+    method int get_column(){
+        return column;
+    }
+
+    method void set_column(int value){
+        let column = value;
+        return ;
+    }
+
+    method void create_fruit(Map collision){
+        var bool check;
+        let check = true;
+        
+        while (check){// check if coordinates isn't part of body snake
+            let column = Utils.Mod(Random.randRange(960),96);// Number of columns
+            let row = Utils.Mod(Random.randRange(560),56);// Number of rows
+
+            if (collision.get_value(column,row) = 0){
+                let check = false;
+            }
+        }
+        
+
+        do Draw.draw_black(column,row);
+
+        return ;
+    }
+}
